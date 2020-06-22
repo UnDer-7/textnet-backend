@@ -3,8 +3,11 @@ import cors from 'cors';
 import helmet from 'helmet';
 import LOGGER from 'morgan';
 
+import DATABASE_CONFIG from './config/DatabaseConfig';
 import SessionController from './controller/SessionController';
 import UserController from './controller/UserController';
+import { createConnection } from 'typeorm';
+import { ConsoleColors } from './util/console.colors';
 
 class Server {
   public readonly express: express.Application;
@@ -12,8 +15,15 @@ class Server {
   constructor() {
     this.express = express();
 
-    this.middleware();
-    this.routes();
+    this.startDatabase()
+      .then(_ => {
+        this.middleware();
+        this.routes();
+      })
+      .catch(e => {
+        console.log(ConsoleColors.FgRed, '\nUnable to Start-Up Project\n');
+        console.trace(e);
+      })
   }
 
   public get origins(): string[] {
@@ -29,6 +39,16 @@ class Server {
     }
 
     return prodURL;
+  }
+
+  private async startDatabase(): Promise<void> {
+    try {
+      await createConnection(DATABASE_CONFIG);
+      console.log(ConsoleColors.FgGreen, '\nSuccessfully connected to the Database\n')
+    } catch (e) {
+      console.log(ConsoleColors.FgRed, '\nUnable to connect to the Database\n');
+      console.trace(e);
+    }
   }
 
   private middleware(): void {
