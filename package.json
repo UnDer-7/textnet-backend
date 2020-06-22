@@ -1,13 +1,26 @@
 {
   "name": "textnet-backend",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
+  "version": "0.0.1",
   "scripts": {
+    "start-local": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
     "start": "node ./build/index.js",
     "debug": "tsc && node --inspect=9090 build/index.js",
-    "start-local": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
-    "build": "tsc"
+    "build": "rm -rf ./build && export ENVIRONMENT=production && tsc",
+    "run-migrations": "export ENVIRONMENT=production && npm run build && npx typeorm migration:run",
+    "new-migration": "npx typeorm migration:create -n"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/cors": "^2.8.6",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.6",
+    "@types/helmet": "^0.0.47",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/lodash-es": "^4.17.3",
+    "@types/morgan": "^1.9.1",
+    "@types/node": "^14.0.13",
+    "ts-node-dev": "^1.0.0-pre.49",
+    "typescript": "^3.9.5"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -22,18 +35,5 @@
     "pg": "^8.2.1",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.25"
-  },
-  "devDependencies": {
-    "@types/bcrypt": "^3.0.0",
-    "@types/cors": "^2.8.6",
-    "@types/dotenv": "^8.2.0",
-    "@types/express": "^4.17.6",
-    "@types/helmet": "^0.0.47",
-    "@types/jsonwebtoken": "^8.5.0",
-    "@types/lodash-es": "^4.17.3",
-    "@types/morgan": "^1.9.1",
-    "@types/node": "^14.0.13",
-    "ts-node-dev": "^1.0.0-pre.49",
-    "typescript": "^3.9.5"
   }
 }

@@ -3,8 +3,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 import LOGGER from 'morgan';
 
-import DATABASE_CONFIG from './config/DatabaseConfig';
-import SessionController from './controller/SessionController';
 import UserController from './controller/UserController';
 import { createConnection } from 'typeorm';
 import { ConsoleColors } from './util/console.colors';
@@ -43,7 +41,7 @@ class Server {
 
   private async startDatabase(): Promise<void> {
     try {
-      await createConnection(DATABASE_CONFIG);
+      await createConnection();
       console.log(ConsoleColors.FgGreen, '\nSuccessfully connected to the Database\n')
     } catch (e) {
       console.log(ConsoleColors.FgRed, '\nUnable to connect to the Database\n');
@@ -63,7 +61,6 @@ class Server {
 
   private routes(): void {
     this.express.use([
-      SessionController,
       UserController,
     ])
   }
