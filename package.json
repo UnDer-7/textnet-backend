@@ -7,6 +7,7 @@
     "debug": "tsc && node --inspect=9090 build/index.js",
     "build": "rm -rf ./build && export ENVIRONMENT=production && tsc",
     "run-migrations": "export ENVIRONMENT=production && npm run build && npx typeorm migration:run",
+    "rev-migrations": "export ENVIRONMENT=production && npm run build && npx typeorm migration:revert",
     "new-migration": "npx typeorm migration:create -n"
   },
   "devDependencies": {
@@ -25,8 +26,10 @@
   "dependencies": {
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
+    "date-fns": "^2.14.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
     "express-validator": "^6.6.0",
     "helmet": "^3.23.1",
     "jsonwebtoken": "^8.5.1",

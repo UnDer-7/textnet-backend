@@ -1,13 +1,20 @@
 import { AssertException } from './Exceptions';
 
 export default abstract class Assert {
-  public static notNull(value: any, errorMessage?: string): void {
-    if (value === null || value === undefined) {
-      if (!errorMessage) {
-        // eslint-disable-next-line no-param-reassign
-        errorMessage = 'Not Null assertion failed';
-      }
+  public static equals<T>(a: T, b: T, errorMsg: string = 'Equal assertion failed'): void {
+    if (a !== b) {
+      throw new AssertException(errorMsg)
+    }
+  }
 
+  public static isNullOrUndefined(value: any, errorMsg: string = 'Is Null or Undefined assertion failed'): void {
+    if (value !== null && value !== undefined) {
+      throw new AssertException(errorMsg);
+    }
+  }
+
+  public static notNullOrUndefined(value: any, errorMessage: string = 'Not Null assertion failed'): void {
+    if (value === null || value === undefined) {
       throw new AssertException(errorMessage);
     }
   }
@@ -16,7 +23,7 @@ export default abstract class Assert {
     let errorMessage = options?.errorMessage;
     const handleNull = options?.handleNull || true;
 
-    if (handleNull) Assert.notNull(value, errorMessage);
+    if (handleNull) Assert.notNullOrUndefined(value, errorMessage);
 
     if (!value!.toString().replace(/\s/g, '').length) {
       if (!errorMessage) {
@@ -33,6 +40,16 @@ export default abstract class Assert {
 
     if (value !== true) {
       throw new AssertException(msg);
+    }
+  }
+
+  public static isFalse(
+    value: boolean | null | undefined,
+    errorMessage: string = 'Is False assertion failed',
+    ): void {
+
+    if (value !== false) {
+      throw new AssertException(errorMessage)
     }
   }
 }

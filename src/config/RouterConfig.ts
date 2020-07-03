@@ -8,15 +8,14 @@ export default class RouterConfig {
     this.routerInstance = Router()
   }
 
-  public static getRouter(): Router {
+  public static build(path: string, version: string = 'v1'): { ROUTER: Router, PATH: string } {
     if (!this.instance) {
       RouterConfig.instance = new RouterConfig();
     }
 
-    return this.instance.routerInstance;
-  }
-
-  public static buildURL(path: string): string {
-    return `/api/v1/${path}`
+    return {
+      ROUTER: this.instance.routerInstance,
+      PATH: `/api/${version}/${path}`
+    };
   }
 }
