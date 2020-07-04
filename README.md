@@ -1,7 +1,13 @@
-# Awesome Project Build with TypeORM
+# Environment Variables
 
-Steps to run this project:
+- ENVIRONMENT
 
-1. Run `npm i` command
-2. Setup database settings inside `ormconfig.json` file
-3. Run `npm start` command
+- TEXTNET_DATABASE_TYPE
+- TEXTNET_DATABASE_HOST
+- TEXTNET_DATABASE_PORT
+- TEXTNET_DATABASE_USERNAME
+- TEXTNET_DATABASE_PASSWORD
+- TEXTNET_DATABASE_DATABASE_NAME
+
+- TEXTNET_JWT_SECRET
+- TEXTNET_JWT_DURATION

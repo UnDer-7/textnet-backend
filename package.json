@@ -1,14 +1,16 @@
 {
   "name": "textnet-backend",
   "version": "0.0.1",
+  "main": "build/index.js",
   "scripts": {
     "start-local": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
-    "start": "node ./build/index.js",
+    "start": "export ENVIRONMENT=production && node ./build/index.js",
     "debug": "tsc && node --inspect=9090 build/index.js",
     "build": "rm -rf ./build && export ENVIRONMENT=production && tsc",
     "run-migrations": "export ENVIRONMENT=production && npm run build && npx typeorm migration:run",
     "rev-migrations": "export ENVIRONMENT=production && npm run build && npx typeorm migration:revert",
-    "new-migration": "npx typeorm migration:create -n"
+    "new-migration": "npx typeorm migration:create -n",
+    "heroku-postbuild": "npm run run-migrations && npm run build"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
@@ -38,5 +40,17 @@
     "pg": "^8.2.1",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.25"
+  },
+  "engines": {
+    "node": "v12.18.1"
+  },
+  "author": {
+    "email": "mateus7532@gmail.com",
+    "name": "Mateus Gomes da Silva Cardoso",
+    "url": "https://www.linkedin.com/in/mateus-gomes-da-silva-cardoso"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UnDer-7/textnet-backend"
   }
 }
