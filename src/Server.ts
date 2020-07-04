@@ -32,8 +32,7 @@ class Server {
 
   public get origins(): string[] {
     const isDev = process.env.NODE_ENV === 'development';
-    // fixme: Add corrects urls
-    const prodURL = ['https://cadeonibus.web.app', 'https://cadeonibus.com.br'];
+    const prodURL = ['https://texnet-front.web.app', 'https://texnet-front.firebaseapp.com'];
 
     if (isDev) {
       return [
